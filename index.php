@@ -1,3 +1,7 @@
+<?php 
+	$_POST['mapa'] = ( empty( $_POST['mapa']) == false ? json_decode( $_POST['mapa'] ) : json_decode('{"mapa":[20.94126089016319,-87.04528458740236],"tipo":"hybrid","zoom":8,"marcador":{"mapa":[-87.022705078125,20.8219127811185],"titulo":""}}') );
+ ?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -38,16 +42,22 @@
 	<div class="contenedor">	
 		<div id="mapa"></div>
 	</div>
-	<button id="guardar"> Mandar </button>
-	<input type="text" name="mapa-pruebas" class="mapa" id="nombre">
-	<input type="text" name="datosMapa" id="datosMapa" hidden>
+	<form action="" method="POST">
+		<label for="nombre"> Nombre: <input type="text" name="mapa-pruebas" class="mapa" id="nombre"> </label>
+		<input type="text" name="mapa" id="datosMapa" hidden>
+		<button id="guardar"> Mandar </button>
+	</form>
+	<pre>
+		<?php var_dump($_POST['mapa']) ?>
+	</pre>
 	<p id="mapadatos">
 		
 		Aqui va todo
 	</p>
     <script>
     $(function(){
-
+    	var configInicial =  <?= json_encode( $_POST['mapa'] ) ?> ;
+    	console.log( configInicial );
     	var map;
     	var markers = [];
     	var opciones = {};
